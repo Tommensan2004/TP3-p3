@@ -24,20 +24,20 @@ public class MainPresenter {
         String entrada = vista.getCantVertices();
 
         if (entrada.isEmpty() || !entrada.matches("\\d+")) {
-            vista.mostrarMensaje("Error: Debe ingresar un número entero positivo para la cantidad de vértices.");
+            vista.mostrarMensaje("Error: Debe ingresar un nÃºmero entero positivo para la cantidad de vÃ©rtices.");
             return;
         }
 
         int cant = Integer.parseInt(entrada);
 
         if (cant <= 0) {
-            vista.mostrarMensaje("Error: La cantidad de vértices debe ser mayor a 0");
+            vista.mostrarMensaje("Error: La cantidad de vÃ©rtices debe ser mayor a 0");
             return;
         }
 
         this.grafo = new Grafo(cant);
         vista.limpiarLog();
-        vista.agregarLog("--> Grafo creado con " + cant + " vértices.");
+        vista.agregarLog("--> Grafo creado con " + cant + " vÃ©rtices.");
         
         vista.actualizarGrafoVisual(grafo, null);
         vista.mostrarMensaje("Grafo inicializado correctamente.");
@@ -54,7 +54,7 @@ public class MainPresenter {
         String destinoStr = vista.getDestino();
 
         if (origenStr.isEmpty() || !origenStr.matches("\\d+") || destinoStr.isEmpty() || !destinoStr.matches("\\d+")) {
-            vista.mostrarMensaje("Error: Los vértices origen y destino deben ser números enteros.");
+            vista.mostrarMensaje("Error: Los vÃ©rtices origen y destino deben ser nÃºmeros enteros.");
             return;
         }
 
@@ -64,12 +64,12 @@ public class MainPresenter {
         
         int cant = grafo.getCantVertices();
         if (u < 0 || u >= cant || v < 0 || v >= cant) {
-            vista.mostrarMensaje("Error: Los vértices deben estar en el rango de 0 a " + (cant - 1) + ".");
+            vista.mostrarMensaje("Error: Los vÃ©rtices deben estar en el rango de 0 a " + (cant - 1) + ".");
             return;
         }
 
         if (u == v) {
-            vista.mostrarMensaje("Error: No se permiten bucles en un mismo vértice.");
+            vista.mostrarMensaje("Error: No se permiten bucles en un mismo vÃ©rtice.");
             return;
         }
 
@@ -86,17 +86,17 @@ public class MainPresenter {
 
     private void ejecutarGoloso() {
         if (grafo == null) {
-            vista.mostrarMensaje("No hay ningún grafo cargado para procesar.");
+            vista.mostrarMensaje("No hay ningÃºn grafo cargado para procesar.");
             return;
         }
 
         ResultadoDominante resultado = AlgoritmoGoloso.resolver(grafo);
 
         vista.agregarLog("\n==========================================");
-        vista.agregarLog("¡Conjunto Dominante Mínimo Encontrado!");
-        vista.agregarLog("Vértices elegidos: " + resultado.getConjuntoDominante());
-        vista.agregarLog("Tamaño del conjunto: " + resultado.getTamanio());
-        vista.agregarLog("Tiempo de ejecución: " + resultado.getTiempoEjecucionMillis() + " ms");
+        vista.agregarLog("Conjunto Dominante MÃ­nimo Encontrado!");
+        vista.agregarLog("VÃ©rtices elegidos: " + resultado.getConjuntoDominante());
+        vista.agregarLog("TamaÃ±o del conjunto: " + resultado.getTamanio());
+        vista.agregarLog("Tiempo de ejecuciÃ³n: " + resultado.getTiempoEjecucionMillis() + " ms");
         vista.agregarLog("==========================================\n");
 
         vista.actualizarGrafoVisual(grafo, resultado.getConjuntoDominante());

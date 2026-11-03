@@ -12,7 +12,7 @@ public class Grafo {
 
     public Grafo(int cantVertices) {
         if (cantVertices <= 0) {
-            throw new IllegalArgumentException("El grafo debe tener al menos un vértice.");
+            throw new IllegalArgumentException("El grafo debe tener al menos un vÃ©rtice.");
         }
         
         this.cantVertices = cantVertices;
@@ -56,7 +56,7 @@ public class Grafo {
 
     private void validarVertice(int i) {
         if (i < 0 || i >= cantVertices) {
-            throw new IllegalArgumentException("El vértice " + i + " no existe en el grafo.");
+            throw new IllegalArgumentException("El vÃ©rtice " + i + " no existe en el grafo.");
         }
     }
 }

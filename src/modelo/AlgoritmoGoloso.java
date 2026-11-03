@@ -12,7 +12,7 @@ public class AlgoritmoGoloso {
         Set<Integer> dominados = new HashSet<>();
         Set<Integer> conjuntoDominante = new HashSet<>();
 
-        // Iterar hasta que todos los vértices del grafo estén dominados
+        // Iterar hasta que todos los vÃ©rtices del grafo estÃ¡n dominados
         while (dominados.size() < cantVertices) {
             int mejorVertice = -1;
             int maxNuevosDominados = -1;
