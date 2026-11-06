@@ -6,17 +6,15 @@ import java.util.Set;
 public class AlgoritmoGoloso {
 
     public static ResultadoDominante resolver(Grafo grafo) {
-    		if (grafo == null) {
+        if (grafo == null) {
             throw new IllegalArgumentException("El grafo no puede ser nulo.");
         }
-    		
-        long inicio = System.currentTimeMillis();
 
         int cantVertices = grafo.getCantVertices();
         Set<Integer> dominados = new HashSet<>();
         Set<Integer> conjuntoDominante = new HashSet<>();
 
-        // Iterar hasta que todos los vÃ©rtices del grafo estÃ¡n dominados
+        // Iterar hasta que todos los vértices del grafo estén dominados
         while (dominados.size() < cantVertices) {
             int mejorVertice = -1;
             int maxNuevosDominados = -1;
@@ -24,7 +22,7 @@ public class AlgoritmoGoloso {
             // Evaluar cada vertice
             for (int v = 0; v < cantVertices; v++) {
                 if (conjuntoDominante.contains(v)) {
-                    continue; //omitimos seleccionados
+                    continue; // omitimos seleccionados
                 }
 
                 // Contar nodos NO dominados, vecinos de V
@@ -38,15 +36,12 @@ public class AlgoritmoGoloso {
             // Agregar el mejor vertice
             conjuntoDominante.add(mejorVertice);
 
-            // agregar dominados el vertice y sus vecinos
+            // Agregar a dominados el vertice y sus vecinos
             dominados.add(mejorVertice);
             dominados.addAll(grafo.getVecinos(mejorVertice));
         }
 
-        long fin = System.currentTimeMillis();
-        double tiempoTotal = (double) (fin - inicio);
-
-        return new ResultadoDominante(conjuntoDominante, tiempoTotal);
+        return new ResultadoDominante(conjuntoDominante);
     }
 
     private static int contarNuevosDominados(Grafo grafo, int v, Set<Integer> dominados) {

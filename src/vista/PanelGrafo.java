@@ -49,7 +49,7 @@ public class PanelGrafo extends JPanel {
         int radioDistribucion = Math.min(centroX, centroY) - 50;
         if (radioDistribucion < 50) radioDistribucion = 100;
 
-        // acomodar los vértices alrededor del círculo
+        // acomodar los vertices alrededor del círculo
         for (int i = 0; i < n; i++) {
             double angulo = 2 * Math.PI * i / n;
             int x = (int) (centroX + radioDistribucion * Math.cos(angulo));
@@ -65,7 +65,7 @@ public class PanelGrafo extends JPanel {
             return;
         }
 
-        // Si el panel cambió de tamaño, recalculamos las posiciones
+        // Si el panel cambia de tamanio, recalculamos las posiciones
         if (posicionesVertices.size() != grafo.getCantVertices()) {
             calcularPosiciones();
         }
@@ -103,7 +103,7 @@ public class PanelGrafo extends JPanel {
             Color colorRelleno = esDominante ? new Color(220, 53, 69) : new Color(0, 123, 255);
             Color colorBorde = esDominante ? new Color(139, 0, 0) : new Color(0, 56, 117);
 
-            // Círculo
+            // Calculo
             g2.setColor(colorRelleno);
             g2.fillOval(p.x - RADIO_NODO, p.y - RADIO_NODO, 2 * RADIO_NODO, 2 * RADIO_NODO);
 
@@ -111,7 +111,7 @@ public class PanelGrafo extends JPanel {
             g2.setStroke(new BasicStroke(2.5f));
             g2.drawOval(p.x - RADIO_NODO, p.y - RADIO_NODO, 2 * RADIO_NODO, 2 * RADIO_NODO);
 
-            // Texto del Vértice (N�mero alineado al centro del círculo)
+           
             String texto = String.valueOf(i);
             FontMetrics fm = g2.getFontMetrics();
             int textoX = p.x - fm.stringWidth(texto) / 2;

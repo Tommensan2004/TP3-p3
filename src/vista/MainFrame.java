@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
     private JTextArea txtResultado;
 
     public MainFrame() {
-        super("TP3 - Conjunto Dominante Mínimo (Algoritmo Goloso)");
+        super("TP3 - Conjunto Dominante Minimo (Algoritmo Goloso)");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1100, 700);
         setMinimumSize(new Dimension(900, 600));
@@ -53,7 +53,7 @@ public class MainFrame extends JFrame {
 
         //PANEL VISUAL DEL GRAFO
         panelGrafo = new PanelGrafo();
-        panelGrafo.setBorder(BorderFactory.createTitledBorder("Visualización del Grafo"));
+        panelGrafo.setBorder(BorderFactory.createTitledBorder("Visualizacion del Grafo"));
         add(panelGrafo, BorderLayout.CENTER);
 
         //PANEL DE CONTROLES
@@ -61,10 +61,10 @@ public class MainFrame extends JFrame {
         panelIzquierdo.setPreferredSize(new Dimension(320, 600));
         panelIzquierdo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
 
-        // Inicialización del Grafo
+        // Inicializacion del Grafo
         JPanel panelInicializacion = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelInicializacion.setBorder(BorderFactory.createTitledBorder("1. Crear Grafo"));
-        panelInicializacion.add(new JLabel("Cant. Vértices:"));
+        panelInicializacion.add(new JLabel("Cant. Vertices:"));
         txtCantVertices = new JTextField(5);
         panelInicializacion.add(txtCantVertices);
         btnCrearGrafo = new JButton("Crear Grafo");
@@ -89,7 +89,7 @@ public class MainFrame extends JFrame {
         btnAgregarArista = new JButton("Agregar Arista");
         panelAristas.add(btnAgregarArista);
 
-        // Ejecución
+        // Ejecucion
         JPanel panelEjecucion = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelEjecucion.setBorder(BorderFactory.createTitledBorder("3. Resolver"));
         btnEjecutarGoloso = new JButton("Calcular Dominante");
@@ -114,7 +114,7 @@ public class MainFrame extends JFrame {
         add(panelInferior, BorderLayout.SOUTH);
     }
 
-    // Método para redibujar el grafo
+    // Metodo para redibujar el grafo
     public void actualizarGrafoVisual(Grafo grafo, Set<Integer> conjuntoDominante) {
         panelGrafo.actualizarGrafo(grafo, conjuntoDominante);
     }

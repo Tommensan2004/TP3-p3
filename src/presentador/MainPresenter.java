@@ -29,7 +29,7 @@ public class MainPresenter {
         String entrada = vista.getCantVertices();
 
         if (entrada.isEmpty() || !entrada.matches("\\d+")) {
-            vista.mostrarMensaje("Error: Debe ingresar un número entero positivo para la cantidad de vértices.");
+            vista.mostrarMensaje("Error: Debe ingresar un número entero positivo para la cantidad de vertices.");
             return;
         }
 
@@ -42,12 +42,12 @@ public class MainPresenter {
 
         this.grafo = new Grafo(cant);
         vista.limpiarLog();
-        vista.agregarLog("--> Grafo creado con " + cant + " vértices.");
+        vista.agregarLog("--> Grafo creado con " + cant + " vertices.");
         
         vista.actualizarGrafoVisual(grafo, null);
         vista.mostrarMensaje("Grafo inicializado correctamente.");
         } catch (NumberFormatException e) {
-            vista.mostrarMensaje("Error: La cantidad de vértices es demasiado grande.");
+            vista.mostrarMensaje("Error: La cantidad de vertices es demasiado grande.");
         }
     }
     
@@ -63,7 +63,7 @@ public class MainPresenter {
 
             vista.limpiarLog();
             vista.agregarLog("Grafo cargado desde archivo: " + archivo.getName());
-            vista.agregarLog("Vértices: " + grafo.getCantVertices());
+            vista.agregarLog("Vertices: " + grafo.getCantVertices());
             vista.agregarLog("Aristas: " + grafo.getCantAristas());
             vista.actualizarGrafoVisual(grafo, null);
             vista.mostrarMensaje("Grafo cargado correctamente.");
@@ -83,7 +83,7 @@ public class MainPresenter {
         String destinoStr = vista.getDestino();
 
         if (origenStr.isEmpty() || !origenStr.matches("\\d+") || destinoStr.isEmpty() || !destinoStr.matches("\\d+")) {
-            vista.mostrarMensaje("Error: Los vértices origen y destino deben ser números enteros.");
+            vista.mostrarMensaje("Error: Los vertices origen y destino deben ser números enteros.");
             return;
         }
 
@@ -93,7 +93,7 @@ public class MainPresenter {
             int cant = grafo.getCantVertices();
 
             if (u < 0 || u >= cant || v < 0 || v >= cant) {
-                vista.mostrarMensaje("Error: Los vértices deben estar en el rango de 0 a " + (cant - 1) + ".");
+                vista.mostrarMensaje("Error: Los vertices deben estar en el rango de 0 a " + (cant - 1) + ".");
                 return;
             }
             if (u == v) {
@@ -110,23 +110,22 @@ public class MainPresenter {
             vista.limpiarCamposArista();
             vista.actualizarGrafoVisual(grafo, null);
         } catch (NumberFormatException e) {
-            vista.mostrarMensaje("Error: El número de vértice es demasiado grande.");
+            vista.mostrarMensaje("Error: El numero de vertice es demasiado grande.");
         }
     }
 
     private void ejecutarGoloso() {
         if (grafo == null) {
-            vista.mostrarMensaje("No hay ningún grafo cargado para procesar.");
+            vista.mostrarMensaje("No hay ningun grafo cargado para procesar.");
             return;
         }
 
         ResultadoDominante resultado = AlgoritmoGoloso.resolver(grafo);
 
         vista.agregarLog("\n==========================================");
-        vista.agregarLog("Conjunto Dominante Mínimo Encontrado!");
-        vista.agregarLog("Vértices elegidos: " + resultado.getConjuntoDominante());
-        vista.agregarLog("Tamaño del conjunto: " + resultado.getTamanio());
-        vista.agregarLog("Tiempo de ejecución: " + resultado.getTiempoEjecucionMillis() + " ms");
+        vista.agregarLog("Conjunto Dominante Minimo Encontrado!");
+        vista.agregarLog("Vertices elegidos: " + resultado.getConjuntoDominante());
+        vista.agregarLog("Tamanio del conjunto: " + resultado.getTamanio());
         vista.agregarLog("==========================================\n");
 
         vista.actualizarGrafoVisual(grafo, resultado.getConjuntoDominante());
