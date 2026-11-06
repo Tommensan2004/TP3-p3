@@ -53,6 +53,14 @@ public class Grafo {
     public int getCantVertices() {
         return cantVertices;
     }
+    
+    public int getCantAristas() {
+        int sumaGrados = 0;
+        for (Set<Integer> adyacentes : vecinos) {
+            sumaGrados += adyacentes.size();
+        }
+        return sumaGrados / 2;
+    }
 
     private void validarVertice(int i) {
         if (i < 0 || i >= cantVertices) {

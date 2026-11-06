@@ -1,6 +1,10 @@
 package presentador;
 
+import java.io.File;
+import java.io.IOException;
+
 import modelo.AlgoritmoGoloso;
+import modelo.CargadorGrafo;
 import modelo.Grafo;
 import modelo.ResultadoDominante;
 import vista.MainFrame;
@@ -16,6 +20,7 @@ public class MainPresenter {
         this.vista = vista;
 
         this.vista.addCrearGrafoListener(e -> crearGrafo());
+        this.vista.addCargarGrafoListener(e -> cargarGrafoDesdeArchivo());
         this.vista.addAgregarAristaListener(e -> agregarArista());
         this.vista.addEjecutarGolosoListener(e -> ejecutarGoloso());
     }
@@ -28,12 +33,12 @@ public class MainPresenter {
             return;
         }
 
-        int cant = Integer.parseInt(entrada);
-
-        if (cant <= 0) {
-            vista.mostrarMensaje("Error: La cantidad de vértices debe ser mayor a 0");
-            return;
-        }
+        try {
+            int cant = Integer.parseInt(entrada);
+            if (cant <= 0) {
+                vista.mostrarMensaje("Error: La cantidad de vértices debe ser mayor a 0.");
+                return;
+            }
 
         this.grafo = new Grafo(cant);
         vista.limpiarLog();
@@ -41,6 +46,30 @@ public class MainPresenter {
         
         vista.actualizarGrafoVisual(grafo, null);
         vista.mostrarMensaje("Grafo inicializado correctamente.");
+        } catch (NumberFormatException e) {
+            vista.mostrarMensaje("Error: La cantidad de vértices es demasiado grande.");
+        }
+    }
+    
+    private void cargarGrafoDesdeArchivo() {
+        File archivo = vista.seleccionarArchivoGrafo();
+        if (archivo == null) {
+            return;
+        }
+
+        try {
+            Grafo nuevoGrafo = CargadorGrafo.cargar(archivo.toPath());
+            this.grafo = nuevoGrafo;
+
+            vista.limpiarLog();
+            vista.agregarLog("Grafo cargado desde archivo: " + archivo.getName());
+            vista.agregarLog("Vértices: " + grafo.getCantVertices());
+            vista.agregarLog("Aristas: " + grafo.getCantAristas());
+            vista.actualizarGrafoVisual(grafo, null);
+            vista.mostrarMensaje("Grafo cargado correctamente.");
+        } catch (IOException | IllegalArgumentException e) {
+            vista.mostrarMensaje("No se pudo cargar el grafo:\n" + e.getMessage());
+        }
     }
 
 
@@ -58,30 +87,31 @@ public class MainPresenter {
             return;
         }
 
-        int u = Integer.parseInt(origenStr);
-        int v = Integer.parseInt(destinoStr);
+        try {
+            int u = Integer.parseInt(origenStr);
+            int v = Integer.parseInt(destinoStr);
+            int cant = grafo.getCantVertices();
 
-        
-        int cant = grafo.getCantVertices();
-        if (u < 0 || u >= cant || v < 0 || v >= cant) {
-            vista.mostrarMensaje("Error: Los vértices deben estar en el rango de 0 a " + (cant - 1) + ".");
-            return;
+            if (u < 0 || u >= cant || v < 0 || v >= cant) {
+                vista.mostrarMensaje("Error: Los vértices deben estar en el rango de 0 a " + (cant - 1) + ".");
+                return;
+            }
+            if (u == v) {
+                vista.mostrarMensaje("Error: No se permiten bucles en un mismo vértice.");
+                return;
+            }
+            if (grafo.existeArista(u, v)) {
+                vista.mostrarMensaje("La arista entre " + u + " y " + v + " ya fue agregada.");
+                return;
+            }
+
+            grafo.agregarArista(u, v);
+            vista.agregarLog("Arista agregada: (" + u + " <--> " + v + ")");
+            vista.limpiarCamposArista();
+            vista.actualizarGrafoVisual(grafo, null);
+        } catch (NumberFormatException e) {
+            vista.mostrarMensaje("Error: El número de vértice es demasiado grande.");
         }
-
-        if (u == v) {
-            vista.mostrarMensaje("Error: No se permiten bucles en un mismo vértice.");
-            return;
-        }
-
-        if (grafo.existeArista(u, v)) {
-            vista.mostrarMensaje("La arista entre " + u + " y " + v + " ya fue agregada.");
-            return;
-        }
-
-        grafo.agregarArista(u, v);
-        vista.agregarLog("Arista agregada: (" + u + " <---> " + v + ")");
-        vista.limpiarCamposArista();
-        vista.actualizarGrafoVisual(grafo, null);
     }
 
     private void ejecutarGoloso() {

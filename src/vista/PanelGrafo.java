@@ -61,7 +61,6 @@ public class PanelGrafo extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         if (grafo == null || posicionesVertices.isEmpty()) {
             return;
         }

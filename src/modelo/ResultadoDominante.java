@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 public class ResultadoDominante {
@@ -7,7 +9,13 @@ public class ResultadoDominante {
     private final double tiempoEjecucionNanos;
 
     public ResultadoDominante(Set<Integer> conjuntoDominante, double tiempoTotal) {
-        this.conjuntoDominante = conjuntoDominante;
+    	if (conjuntoDominante == null) {
+            throw new IllegalArgumentException("El conjunto dominante no puede ser nulo.");
+        }
+        if (tiempoTotal < 0) {
+            throw new IllegalArgumentException("El tiempo de ejecucion no puede ser negativo.");
+        }
+        this.conjuntoDominante = Collections.unmodifiableSet(new HashSet<>(conjuntoDominante));
         this.tiempoEjecucionNanos = tiempoTotal;
     }
 
